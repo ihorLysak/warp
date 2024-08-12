@@ -2,12 +2,12 @@
 
 add_gate() {
     local gate_name="$1"
-    echo "$gate_name: $(pwd)" >> ~/.warp/gates.txt
+    echo "$gate_name: $(pwd)" >> /Users/ihorlysak/warp/gates.txt
 }
 
 get_gate_path() {
     local gate_name="$1"
-    local file_path="~/.warp/gates.txt"
+    local file_path="/Users/ihorlysak/warp/gates.txt"
     
     if [ ! -f "$file_path" ]; then
         echo "The gate file does not exist."
@@ -26,7 +26,7 @@ get_gate_path() {
 
 remove_gate() {
     local gate_name="$1"
-    local file_path="~/.warp/gates.txt"
+    local file_path="/Users/ihorlysak/warp/gates.txt"
 
     if [ ! -f "$file_path" ]; then
         echo "The gate file does not exist."
@@ -44,7 +44,7 @@ remove_gate() {
 }
 
 list_gates() {
-    local file_path="/tmp/gates.txt"
+    local file_path="/Users/ihorlysak/warp/gates.txt"
     if [ ! -f "$file_path" ]; then
         echo "No gates file found. No gates to display."
         return 1

@@ -75,16 +75,18 @@ case "$1" in
         ;;
     blink)
         if [ -n "$2" ]; then
-            gate_path=$(get_gate_path "$2")
-            if [ -n "$gate_path" ]; then 
-                code -r "$gate_path" || {
-                    echo "Failed to open editor at '$gate_path'"
-                }
+            if [ "$2" = "here" ]; then
+                code -r "$(pwd)" || echo "Failed to open editor at $(pwd)"
             else
-                echo "No valid path found for gate '$2'."
+                gate_path=$(get_gate_path "$2")
+                if [ -n "$gate_path" ]; then 
+                    code -r "$gate_path" || echo "Failed to open editor at '$gate_path'"
+                else
+                    echo "No valid path found for gate '$2'."
+                fi
             fi
         else
-            echo "Usage: warp blink <gate_name>"
+            echo "Usage: warp blink <gate_name> or warp blink here"
         fi
         ;;
     *)
@@ -98,7 +100,7 @@ case "$1" in
                 echo "No valid path found for gate '$1'."
             fi
         else
-            echo "Usage: warp [ add <gate_name> | remove <gate_name> | blink <gate_namew> | list | <gate_name> ]"
+            echo "Usage: warp [ add <gate_name> | remove <gate_name> | blink [ <gate_name> | here ] | list | <gate_name> ]"
         fi  
         ;;
 esac 

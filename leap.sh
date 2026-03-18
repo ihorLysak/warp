@@ -2,12 +2,12 @@
 
 add_gate() {
     local gate_name="$1"
-    echo "$gate_name: $(pwd)" >> /Users/ihorlysak/warp/gates.txt
+    echo "$gate_name: $(pwd)" >> /Users/igorlysak/leap/gates.txt
 }
 
 get_gate_path() {
     local gate_name="$1"
-    local file_path="/Users/ihorlysak/warp/gates.txt"
+    local file_path="/Users/igorlysak/leap/gates.txt"
     
     if [ ! -f "$file_path" ]; then
         echo "The gate file does not exist."
@@ -26,7 +26,7 @@ get_gate_path() {
 
 remove_gate() {
     local gate_name="$1"
-    local file_path="/Users/ihorlysak/warp/gates.txt"
+    local file_path="/Users/igorlysak/leap/gates.txt"
 
     if [ ! -f "$file_path" ]; then
         echo "The gate file does not exist."
@@ -44,7 +44,7 @@ remove_gate() {
 }
 
 list_gates() {
-    local file_path="/Users/ihorlysak/warp/gates.txt"
+    local file_path="/Users/igorlysak/leap/gates.txt"
     if [ ! -f "$file_path" ]; then
         echo "No gates file found. No gates to display."
         return 1
@@ -60,14 +60,14 @@ case "$1" in
         if [ -n "$2" ]; then
             add_gate "$2"
         else
-            echo "Usage: warp add <gate_name>"
+            echo "Usage: leap add <gate_name>"
         fi
         ;;
     remove)
         if [ -n "$2" ]; then
             remove_gate "$2"
         else
-            echo "Usage: warp remove <gate_name>"
+            echo "Usage: leap remove <gate_name>"
         fi
         ;;
     list)
@@ -76,17 +76,17 @@ case "$1" in
     blink)
         if [ -n "$2" ]; then
             if [ "$2" = "here" ]; then
-                code -r "$(pwd)" || echo "Failed to open editor at $(pwd)"
+                cursor -r "$(pwd)" || echo "Failed to open editor at $(pwd)"
             else
                 gate_path=$(get_gate_path "$2")
                 if [ -n "$gate_path" ]; then 
-                    code -r "$gate_path" || echo "Failed to open editor at '$gate_path'"
+                    cursor -r "$gate_path" || echo "Failed to open editor at '$gate_path'"
                 else
                     echo "No valid path found for gate '$2'."
                 fi
             fi
         else
-            echo "Usage: warp blink <gate_name> or warp blink here"
+            echo "Usage: leap blink <gate_name> or leap blink here"
         fi
         ;;
     *)
@@ -100,7 +100,7 @@ case "$1" in
                 echo "No valid path found for gate '$1'."
             fi
         else
-            echo "Usage: warp [ add <gate_name> | remove <gate_name> | blink [ <gate_name> | here ] | list | <gate_name> ]"
+            echo "Usage: leap [ add <gate_name> | remove <gate_name> | blink [ <gate_name> | here ] | list | <gate_name> ]"
         fi  
         ;;
 esac 
